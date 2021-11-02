@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-web-app",
+  "name": "loanify-demo",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/narayanakreddy/nodejs-web-app.git"
+    "url": "git+https://github.com/narayanakreddy/loanify-demo.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/narayanakreddy/nodejs-web-app/issues"
+    "url": "https://github.com/narayanakreddy/loanify-demo/issues"
   },
-  "homepage": "https://github.com/narayanakreddy/nodejs-web-app#readme",
+  "homepage": "https://github.com/narayanakreddy/loanify-demo#readme",
   "dependencies": {
     "ejs": "^3.1.6",
     "express": "^4.17.1"
