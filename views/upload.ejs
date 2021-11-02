@@ -1,0 +1,35 @@
+<%- include ("./_header") -%>
+
+    <div class="">
+        <div class="image-title">Loanify</div>
+        <h3 style="margin-bottom: 15px;">Upload your Photo identification</h3>
+
+        <div style="margin: 20px 0;font-size: 12px;">Front Side</div>
+
+        <div class="image-upload">
+            <label htmlFor="file-input2">
+                <img height="250px" src="/images/uploadImage.png" />
+            </label>
+
+            <input id="file-input2" type="file" name="myImage" />
+        </div>
+
+
+        <div style="margin: 20px 0;font-size: 12px;">Back Side</div>
+
+        <div class="image-upload">
+            <label htmlFor="file-input3">
+                <img height="250px" src="/images/uploadImage.png" />
+            </label>
+
+            <input id="file-input3" type="file" name="myImage" />
+        </div>
+        <a href="/kyc">
+            <button style="margin: 30px auto;" type="button" class="btn btn-primary btn-style ">
+                Upload
+            </button>
+        </a>
+
+    </div>
+
+    <%- include ("./_footer") -%>

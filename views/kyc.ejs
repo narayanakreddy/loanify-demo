@@ -1,0 +1,79 @@
+<%- include ("./_header") -%>
+
+    <div class="kyc-section">
+        <div class="image-title">Loanify</div>
+        <h3>KYC Information</h3>
+        <p>Create an account to continue!</p>
+
+        <img src="/images/kyc.png" height="250" style="display:flex;margin: 0 auto;" />
+        <form>
+            <div class="form-group">
+                <label for="Email">Gender</label>
+                <select class="form-control input-lg">
+                    <option value="-1"></option>
+                    <option value="S">Male</option>
+                    <option value="M">Female</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Address">Job Info</label>
+                <input type="text" placeholder="Enter your job info" class="form-control input-lg" id="Address" />
+            </div>
+
+            <div class="form-group">
+                <label>Education Level</label>
+                <select class="form-control input-lg">
+                    <option value="-1"></option>
+                    <option value="U">Univ+</option>
+                    <option value="S">Secondary</option>
+                    <option value="O">Others</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Dob">Education</label>
+                <input type="text" placeholder="Enter your education" class="form-control input-lg" id="Dob" />
+            </div>
+
+            <div class="form-group">
+                <label>Company Level</label>
+                <select class="form-control input-lg">
+                    <option value="-1"></option>
+                    <option value="P">Public</option>
+                    <option value="PR">Private</option>
+                    <option value="O">Others</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Email">Work Experience</label>
+
+                <input type="text" placeholder="Enter your work experience" class="form-control input-lg" id="Email" />
+            </div>
+            <div class="form-group">
+                <label for="Phone">Marital Status</label>
+                <select class="form-control input-lg">
+                    <option value="-1"></option>
+                    <option value="S">Single</option>
+                    <option value="M">Married</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Password">Dependents</label>
+                <input type="text" placeholder="Enter your dependents" class="form-control input-lg" id="Password" />
+            </div>
+
+            <div class="form-group">
+                <label for="Password">Request Limit</label>
+                <input type="text" placeholder="Enter your request limit" class="form-control input-lg" id="Password" />
+            </div>
+
+            <a href="/eligibility">
+                <button type="button" class="btn btn-primary btn-style" style="margin-top: 30px;">
+                    Lets check eligibility
+                </button>
+            </a>
+
+        </form>
+    </div>
+
+    <%- include ("./_footer") -%>
