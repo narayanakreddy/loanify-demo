@@ -1,28 +1,46 @@
 <%- include ("./_header") -%>
 
+
+
+
     <div class="">
         <div class="image-title">Loanify</div>
         <h3 style="margin-bottom: 15px;">Upload your Photo identification</h3>
 
         <div style="margin: 20px 0;font-size: 12px;">Front Side</div>
 
+        <!-- <label htmlFor="file-input2">
+            <img height="250px" src={URL.createObjectURL(selectedImage)} />
+          </label> -->
+
         <div class="image-upload">
-            <label htmlFor="file-input2">
-                <img height="250px" src="/images/uploadImage.png" />
+
+            <label id="frontImageDiv" for="file-input2" style="display: none;">
+                <img id="frontImage" height="250px" src="" />
             </label>
 
-            <input id="file-input2" type="file" name="myImage" />
+            <label id="frontDefault" for="file-input2">
+                <img height="250px" src="/images/uploadImage.png" />
+            </label>
+            <input  onchange="uploadFiles('FRONT')" id="file-input2" type="file" name="myImage" />
         </div>
 
 
         <div style="margin: 20px 0;font-size: 12px;">Back Side</div>
 
+
+
         <div class="image-upload">
-            <label htmlFor="file-input3">
+
+            <label id="backImageDiv" for="file-input3" style="display: none;">
+                <img id="backImage" height="250px" src="" />
+            </label>
+
+            <label id="backDefault" for="file-input3">
                 <img height="250px" src="/images/uploadImage.png" />
             </label>
 
-            <input id="file-input3" type="file" name="myImage" />
+            <input onchange="uploadFiles('BACK')" id="file-input3" type="file" name="myImage" />
         </div>
         <a href="/kyc">
             <button style="margin: 30px auto;" type="button" class="btn btn-primary btn-style ">
@@ -31,5 +49,37 @@
         </a>
 
     </div>
+
+    <script type="text/javascript">
+        function uploadFiles(type) {
+
+            if (type === 'FRONT') {
+                let uploadedFiles = document.getElementById("file-input2").files[0];
+                console.log(uploadedFiles)
+                document.getElementById("frontImageDiv").style.display = 'block'
+                document.getElementById("frontImage").style.display = 'block'
+                document.getElementById("frontImage").setAttribute('src', URL.createObjectURL(uploadedFiles))
+                document.getElementById("frontDefault").style.display = 'none'
+            }
+
+
+            if (type === 'BACK') {
+                let uploadedFiles = document.getElementById("file-input3").files[0];
+                console.log(uploadedFiles)
+                document.getElementById("backImageDiv").style.display = 'block'
+                document.getElementById("backImage").style.display = 'block'
+                document.getElementById("backImage").setAttribute('src', URL.createObjectURL(uploadedFiles))
+                document.getElementById("backDefault").style.display = 'none'
+                console.log(URL.createObjectURL(uploadedFiles))
+                
+            }
+
+
+        };
+    </script>
+
+
+
+
 
     <%- include ("./_footer") -%>

@@ -8,12 +8,38 @@
         </p>
 
         <div class="image-upload">
-            <label htmlFor="file-input1">
-                <img height="250px" src="/images/uploadImage.png" />
+            <label id="selfiImageDiv" for="file-input1" style="display: none;">
+                <img id="selfiImage" height="250px" src="" />
             </label>
 
-            <input id="file-input1" type="file" name="myImage" />
+            <label id="selfiDefault" for="file-input1">
+                <img height="250px" src="/images/selfi.jpg" />
+            </label>
+
+            <input onchange="uploadFiles()" id="file-input1" type="file" name="myImage" />
         </div>
+
+        <a id="showBtn" style="display: none;" href="/upload">
+            <button style="margin: 30px auto;" type="button" class="btn btn-primary btn-style ">
+                Upload
+            </button>
+        </a>
     </div>
+
+
+    <script type="text/javascript">
+        function uploadFiles() {
+            let uploadedFiles = document.getElementById("file-input1").files[0];
+            console.log(uploadedFiles)
+            document.getElementById("selfiImageDiv").style.display = 'block'
+            document.getElementById("selfiImage").style.display = 'block'
+            document.getElementById("selfiImage").setAttribute('src', URL.createObjectURL(uploadedFiles))
+            document.getElementById("selfiDefault").style.display = 'none'
+            sessionStorage.setItem('selfiImage', URL.createObjectURL(uploadedFiles))
+            document.getElementById("showBtn").style.display = 'block'
+
+        };
+    </script>
+
 
     <%- include ("./_footer") -%>
