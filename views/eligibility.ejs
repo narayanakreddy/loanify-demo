@@ -1,23 +1,34 @@
 <%- include ("./_header") -%>
 
-<div class="">
+  <div class="">
     <div class="image-title">Loanify</div>
     <h3>Loan Eligibility</h3>
     <p>Create an account to continue</p>
 
-      <div style="margin: 50px 0;">
-        <h6>CREDIT SCORE</h6>
-        <div
-          class="d-flex"
-          style="align-items: center;justify-content: center;"
-        >
-          <div class="circle"></div>
-          <h2 class="amount">15,901</h2>
-        </div>
-        <h5>Loan Approval</h5>
+
+    <div id="loader" class="loader"></div>
+
+    <div id="loan-details" style="margin: 50px 0;display: none;">
+      <h6>CREDIT SCORE</h6>
+      <div class="d-flex" style="align-items: center;justify-content: center;">
+        <div class="circle"></div>
+        <h2 class="amount">15,901</h2>
       </div>
+      <h5>Loan Approval</h5>
+    </div>
   </div>
 
+  <script type="text/javascript">
+
+    setTimeout(() => {
+      document.getElementById("loader").style.display = 'none'
+      document.getElementById("loan-details").style.display = 'block'
+    }, 1000);
 
 
-<%- include ("./_footer") -%>
+  </script>
+
+
+
+
+  <%- include ("./_footer") -%>
