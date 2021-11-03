@@ -12,9 +12,29 @@
       <h6>CREDIT SCORE</h6>
       <div class="d-flex" style="align-items: center;justify-content: center;">
         <div class="circle"></div>
-        <h2 class="amount">15,901</h2>
+        <h2 class="amount">655</h2>
       </div>
-      <h5>Loan Approval</h5>
+      <h5>Loan Approved</h5>
+
+      <div id="loader1" class="loader" style="display: none;margin-top: 20px;"></div>
+
+      <div id="loan-approved-details" style="display: none;margin-top: 30px;">
+        <div>
+          <h6>Loan Disbursed</h6>
+          <div class="d-flex" style="align-items: center;justify-content: center;">
+            <h2 style="margin: 0;font-size: 45px;" class="amount"><span style="font-size: 30px;">USD</span> 2,500</h2>
+          </div>
+        </div>
+        <div style="margin-top: 30px;">
+          <h6>Account No.</h6>
+          <div class="d-flex" style="align-items: center;justify-content: center;">
+            <h2 style="margin: 0;" class="accountNo">307728947493</h2>
+          </div>
+        </div>
+
+      </div>
+
+
     </div>
   </div>
 
@@ -23,7 +43,13 @@
     setTimeout(() => {
       document.getElementById("loader").style.display = 'none'
       document.getElementById("loan-details").style.display = 'block'
-    }, 1000);
+      document.getElementById("loader1").style.display = 'block'
+    }, 1500);
+
+    setTimeout(() => {
+      document.getElementById("loader1").style.display = 'none'
+      document.getElementById("loan-approved-details").style.display = 'block'
+    }, 2500);
 
 
   </script>
