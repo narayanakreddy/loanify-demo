@@ -5,31 +5,38 @@
         <p>Create an account to continue!</p>
 
         <img src="/images/signUp.png" height="250" style="display: block;margin: 0 auto;" />
-        <form>
+
+        <form id="signUpForm" novalidate>
             <div class="form-group">
-                <label for="Email">Applicant Name</label>
-                <input type="text" placeholder="Enter your applicant name" class="form-control input-lg" id="Email" />
+                <label for="applicantName">Applicant Name</label>
+                <input required type="text" placeholder="Enter your applicant name" class="form-control input-lg"
+                    id="applicantName" name="applicantName" />
             </div>
 
             <div class="form-group">
                 <label for="Address">Home Address</label>
-                <input type="text" placeholder="Enter your home address" class="form-control input-lg" id="Address" />
+                <input type="text" placeholder="Enter your home address" class="form-control input-lg" id="Address"
+                    name="address" />
             </div>
             <div class="form-group">
                 <label for="Dob">Date of Birth</label>
-                <input type="date" placeholder="Enter your home address" class="form-control input-lg" id="Dob" />
+                <input type="date" placeholder="Enter your home address" class="form-control input-lg" id="Dob"
+                    name="dob" />
             </div>
             <div class="form-group">
                 <label for="Email">Email Address</label>
-                <input type="text" placeholder="Enter your email address" class="form-control input-lg" id="Email" />
+                <input type="text" name="email" placeholder="Enter your email address" class="form-control input-lg"
+                    id="Email" />
             </div>
             <div class="form-group">
                 <label for="Phone">Phone Number</label>
-                <input type="text" placeholder="Enter your phone number" class="form-control input-lg" id="Phone" />
+                <input type="text" placeholder="Enter your phone number" class="form-control input-lg" id="Phone"
+                    name="mobileNo" />
             </div>
             <div class="form-group">
                 <label for="Password">Password</label>
-                <input type="password" placeholder="Enter password" class="form-control input-lg" id="Password" />
+                <input type="password" placeholder="Enter password" class="form-control input-lg" id="Password"
+                    name="password" />
             </div>
 
             <div class="checkbox">
@@ -41,11 +48,23 @@
                     </div>
                 </label>
             </div>
-            <a href="/otp">
-                <button type="button" class="btn btn-primary btn-style">
-                    Signup
-                </button>
-            </a>
+
+            <!-- <% if(typeof alert !='undefined' ) { %>
+                <% alert.forEach(function(error) { %>
+                    <div class="alert alert-warning alert-dismissible show" role="alert">
+                        <%= error.msg %>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                    </div>
+                    <% }) %>
+                        <% } %> -->
+
+            <!-- <a href="/otp"> -->
+            <button onclick="handleValidate()" type="button" class="btn btn-primary btn-style">
+                Signup
+            </button>
+            <!-- </a> -->
 
         </form>
 
@@ -68,5 +87,17 @@
             Already have an account? <a href="/login">Login</a>
         </div>
     </div>
+
+    <script>
+
+
+        function handleValidate() {
+
+            var myForm = document.getElementById("signUpForm")
+            debugger;
+            console.log(myForm)
+        }
+
+    </script>
 
     <%- include ("./_footer") -%>
