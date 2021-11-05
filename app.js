@@ -2,7 +2,7 @@ var express = require("express"); //including express  npm
 var path = require("path");
 var bodyParser = require("body-parser");
 var app = express(); // Creating instance
-var port = 6072; // setting port for the application
+var port = 4200; // setting port for the application
 
 var routes = require("./routes");
 
