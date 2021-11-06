@@ -29,16 +29,33 @@
             </div>
         </section>
 
-        <a href="/selfi">
+        <a id="VerifyBtn" onclick="handleValidate()">
             <button type="button" class="btn btn-primary btn-style " style="margin-top: 30px;">
                 Verify
             </button></a>
 
-
-
+        <div style="display: none;color: red;" class="errorMessage" id="ErrorMessage">
+            please enter the code to proceed
+        </div>
     </div>
 
     <script>
+
+        function handleValidate() {
+            var codeBox1 = document.getElementById("codeBox1").value;
+            var codeBox2 = document.getElementById("codeBox2").value;
+            var codeBox3 = document.getElementById("codeBox3").value;
+            var codeBox4 = document.getElementById("codeBox4").value;
+
+            if (codeBox1.length > 0 && codeBox2.length > 0 && codeBox3.length > 0 && codeBox4.length > 0) {
+                document.getElementById("ErrorMessage").style.display = 'none'
+                document.getElementById("VerifyBtn").href = "/selfi"
+
+            } else {
+                document.getElementById("ErrorMessage").style.display = 'block'
+            }
+
+        }
 
         function getCodeBoxElement(index) {
             return document.getElementById('codeBox' + index);

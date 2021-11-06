@@ -8,8 +8,8 @@
         <img src="/images/kyc.png" height="250" style="display:flex;margin: 0 auto;" />
         <form>
             <div class="form-group">
-                <label for="Email">Gender</label>
-                <select class="form-control input-lg">
+                <label for="gender">Gender *</label>
+                <select id="gender" name="gender" class="form-control input-lg">
                     <option value="-1"></option>
                     <option value="S">Male</option>
                     <option value="M">Female</option>
@@ -17,13 +17,14 @@
             </div>
 
             <div class="form-group">
-                <label for="Address">Job Info</label>
-                <input type="text" placeholder="Enter your job info" class="form-control input-lg" id="Address" />
+                <label for="jobInfo">Job Info *</label>
+                <input type="text" placeholder="Enter your job info" class="form-control input-lg" id="jobInfo"
+                    name="jobInfo" />
             </div>
 
             <div class="form-group">
-                <label>Education Level</label>
-                <select class="form-control input-lg">
+                <label>Education Level *</label>
+                <select id="eduLevel" name="eduLevel" class="form-control input-lg">
                     <option value="-1"></option>
                     <option value="U">Univ+</option>
                     <option value="S">Secondary</option>
@@ -31,13 +32,14 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="Dob">Education</label>
-                <input type="text" placeholder="Enter your education" class="form-control input-lg" id="Dob" />
+                <label for="education">Education *</label>
+                <input name="education" type="text" placeholder="Enter your education" class="form-control input-lg"
+                    id="education" />
             </div>
 
             <div class="form-group">
-                <label>Company Level</label>
-                <select class="form-control input-lg">
+                <label>Company Level *</label>
+                <select id="company" name="company" class="form-control input-lg">
                     <option value="-1"></option>
                     <option value="P">Public</option>
                     <option value="PR">Private</option>
@@ -45,35 +47,77 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="Email">Work Experience</label>
+                <label for="work">Work Experience *</label>
 
-                <input type="text" placeholder="Enter your work experience" class="form-control input-lg" id="Email" />
+                <input name="work" type="text" placeholder="Enter your work experience" class="form-control input-lg"
+                    id="work" />
             </div>
             <div class="form-group">
-                <label for="Phone">Marital Status</label>
-                <select class="form-control input-lg">
+                <label for="marital">Marital Status *</label>
+                <select id="marital" name="marital" class="form-control input-lg">
                     <option value="-1"></option>
                     <option value="S">Single</option>
                     <option value="M">Married</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="Password">Dependents</label>
-                <input type="text" placeholder="Enter your dependents" class="form-control input-lg" id="Password" />
+                <label for="password">Dependents *</label>
+                <input type="text" placeholder="Enter your dependents" class="form-control input-lg" id="dependents" />
             </div>
 
             <div class="form-group">
-                <label for="Password">Request Limit</label>
-                <input type="text" placeholder="Enter your request limit" class="form-control input-lg" id="Password" />
+                <label for="requestLimit">Request Limit *</label>
+                <input type="text" placeholder="Enter your request limit" class="form-control input-lg"
+                    id="requestLimit" />
             </div>
 
-            <a href="/eligibility">
+            <a id="EligibilityBtn" onclick="handleValidate()">
                 <button type="button" class="btn btn-primary btn-style" style="margin-top: 30px;">
                     Lets check eligibility
                 </button>
             </a>
 
+            <div style="display: none;color: red;" class="errorMessage" id="ErrorMessage">
+                All fields are required for to proceed
+            </div>
+
         </form>
     </div>
+
+
+    <script>
+
+
+        function handleValidate() {
+            var gender = document.getElementById("gender").value;
+            var jobInfo = document.getElementById("jobInfo").value;
+            var eduLevel = document.getElementById("eduLevel").value;
+            var education = document.getElementById("education").value;
+            var company = document.getElementById("company").value;
+            var work = document.getElementById("work").value;
+            var marital = document.getElementById("marital").value;
+            var dependents = document.getElementById("dependents").value;
+            var requestLimit = document.getElementById("requestLimit").value;
+
+
+            if (requestLimit.length > 0 &&
+                dependents.length > 0 &&
+                marital.length > 0 &&
+                gender.length > 0 &&
+                jobInfo.length > 0 &&
+                eduLevel.length > 0 &&
+                education.length > 0 &&
+                company.length > 0 &&
+                work.length > 0) {
+                document.getElementById("ErrorMessage").style.display = 'none'
+                document.getElementById("EligibilityBtn").href = "/eligibility"
+
+            } else {
+                document.getElementById("ErrorMessage").style.display = 'block'
+            }
+
+        }
+
+    </script>
 
     <%- include ("./_footer") -%>

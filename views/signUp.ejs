@@ -8,33 +8,33 @@
 
         <form id="signUpForm" novalidate>
             <div class="form-group">
-                <label for="applicantName">Applicant Name</label>
+                <label for="applicantName">Applicant Name *</label>
                 <input required type="text" placeholder="Enter your applicant name" class="form-control input-lg"
                     id="applicantName" name="applicantName" />
             </div>
 
             <div class="form-group">
-                <label for="Address">Home Address</label>
+                <label for="Address">Home Address *</label>
                 <input type="text" placeholder="Enter your home address" class="form-control input-lg" id="Address"
                     name="address" />
             </div>
             <div class="form-group">
-                <label for="Dob">Date of Birth</label>
+                <label for="Dob">Date of Birth *</label>
                 <input type="date" placeholder="Enter your home address" class="form-control input-lg" id="Dob"
                     name="dob" />
             </div>
             <div class="form-group">
-                <label for="Email">Email Address</label>
+                <label for="Email">Email Address *</label>
                 <input type="text" name="email" placeholder="Enter your email address" class="form-control input-lg"
                     id="Email" />
             </div>
             <div class="form-group">
-                <label for="Phone">Phone Number</label>
-                <input type="text" placeholder="Enter your phone number" class="form-control input-lg" id="Phone"
+                <label for="mobileNo">Phone Number *</label>
+                <input type="text" placeholder="Enter your phone number" class="form-control input-lg" id="mobileNo"
                     name="mobileNo" />
             </div>
             <div class="form-group">
-                <label for="Password">Password</label>
+                <label for="Password">Password *</label>
                 <input type="password" placeholder="Enter password" class="form-control input-lg" id="Password"
                     name="password" />
             </div>
@@ -60,11 +60,15 @@
                     <% }) %>
                         <% } %> -->
 
-            <!-- <a href="/otp"> -->
-            <button onclick="handleValidate()" type="button" class="btn btn-primary btn-style">
-                Signup
-            </button>
-            <!-- </a> -->
+            <a id="SignUpBtn" onclick="handleValidate()">
+                <button type="button" class="btn btn-primary btn-style">
+                    Signup
+                </button>
+            </a>
+
+            <div style="display: none;color: red;" class="errorMessage" id="ErrorMessage">
+                All fields are required for to proceed
+            </div>
 
         </form>
 
@@ -92,10 +96,21 @@
 
 
         function handleValidate() {
+            var applicantName = document.getElementById("applicantName").value;
+            var Address = document.getElementById("Address").value;
+            var Password = document.getElementById("Password").value;
+            var Dob = document.getElementById("Dob").value;
+            var Email = document.getElementById("Email").value;
+            var mobileNo = document.getElementById("mobileNo").value;
 
-            var myForm = document.getElementById("signUpForm")
-            debugger;
-            console.log(myForm)
+            if (mobileNo.length > 0 && applicantName.length > 0 && Address.length > 0 && Password.length > 0 && Dob.length > 0 && Email.length > 0) {
+                document.getElementById("ErrorMessage").style.display = 'none'
+                document.getElementById("SignUpBtn").href = "/otp"
+
+            } else {
+                document.getElementById("ErrorMessage").style.display = 'block'
+            }
+
         }
 
     </script>

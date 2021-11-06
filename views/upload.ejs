@@ -22,7 +22,7 @@
             <label id="frontDefault" for="file-input2">
                 <img height="250px" src="/images/uploadImage.png" />
             </label>
-            <input  onchange="uploadFiles('FRONT')" id="file-input2" type="file" name="myImage" />
+            <input onchange="uploadFiles('FRONT')" id="file-input2" type="file" name="myImage" />
         </div>
 
 
@@ -71,7 +71,7 @@
                 document.getElementById("backImage").setAttribute('src', URL.createObjectURL(uploadedFiles))
                 document.getElementById("backDefault").style.display = 'none'
                 console.log(URL.createObjectURL(uploadedFiles))
-                
+
             }
 
 
