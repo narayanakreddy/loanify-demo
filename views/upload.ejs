@@ -7,11 +7,17 @@
         <div class="image-title">Loanify</div>
         <h3 style="margin-bottom: 15px;">Upload your Photo identification</h3>
 
-        <div style="margin: 20px 0;font-size: 12px;">Front Side</div>
+        <div class="image-upload" style="margin-bottom: 30px;margin-top: 30px;">
+            <label id="selfiImageDiv" for="file-input1" style="display: none;">
+                <img id="selfiImage" height="250px" src="" />
+            </label>
 
-        <!-- <label htmlFor="file-input2">
-            <img height="250px" src={URL.createObjectURL(selectedImage)} />
-          </label> -->
+            <label id="selfiDefault" for="file-input1">
+                <img id="selfiImageDefault" height="250px" src="/images/selfi.jpg" />
+            </label>
+
+            <input onchange="uploadFiles('SELFI')" id="file-input1" type="file" name="myImage" />
+        </div>
 
         <div class="image-upload">
 
@@ -22,27 +28,9 @@
             <label id="frontDefault" for="file-input2">
                 <img height="250px" src="/images/uploadImage.png" />
             </label>
-            <input onchange="uploadFiles('FRONT')" id="file-input2" type="file" name="myImage" />
+            <input onchange="uploadFiles('ID')" id="file-input2" type="file" name="myImage" />
         </div>
-
-
-        <div style="margin: 20px 0;font-size: 12px;">Back Side</div>
-
-
-
-        <div class="image-upload">
-
-            <label id="backImageDiv" for="file-input3" style="display: none;">
-                <img id="backImage" height="250px" src="" />
-            </label>
-
-            <label id="backDefault" for="file-input3">
-                <img height="250px" src="/images/uploadImage.png" />
-            </label>
-
-            <input onchange="uploadFiles('BACK')" id="file-input3" type="file" name="myImage" />
-        </div>
-        <a href="/kyc">
+        <a id="uploadBtn" onclick="verifyPair()">
             <button style="margin: 30px auto;" type="button" class="btn btn-primary btn-style ">
                 Upload
             </button>
@@ -51,31 +39,56 @@
     </div>
 
     <script type="text/javascript">
+
+        var selfiImage = '';
+        var IdProofImage = ''
+
+
         function uploadFiles(type) {
 
-            if (type === 'FRONT') {
-                let uploadedFiles = document.getElementById("file-input2").files[0];
-                console.log(uploadedFiles)
+            if (type === 'SELFI') {
+
+                selfiImage = document.getElementById("file-input1").files[0];
+                document.getElementById("selfiImageDiv").style.display = 'block'
+                document.getElementById("selfiImage").style.display = 'block'
+                document.getElementById("selfiImage").setAttribute('src', URL.createObjectURL(selfiImage))
+                document.getElementById("selfiDefault").style.display = 'none'
+            }
+
+
+            if (type === 'ID') {
+                IdProofImage = document.getElementById("file-input2").files[0];
                 document.getElementById("frontImageDiv").style.display = 'block'
                 document.getElementById("frontImage").style.display = 'block'
-                document.getElementById("frontImage").setAttribute('src', URL.createObjectURL(uploadedFiles))
+                document.getElementById("frontImage").setAttribute('src', URL.createObjectURL(IdProofImage))
                 document.getElementById("frontDefault").style.display = 'none'
-            }
-
-
-            if (type === 'BACK') {
-                let uploadedFiles = document.getElementById("file-input3").files[0];
-                console.log(uploadedFiles)
-                document.getElementById("backImageDiv").style.display = 'block'
-                document.getElementById("backImage").style.display = 'block'
-                document.getElementById("backImage").setAttribute('src', URL.createObjectURL(uploadedFiles))
-                document.getElementById("backDefault").style.display = 'none'
-                console.log(URL.createObjectURL(uploadedFiles))
+                // console.log(URL.createObjectURL(backImage))
 
             }
-
-
         };
+
+        function verifyPair() {
+            var formData = new FormData()
+            formData.append('image1', selfiImage);
+            formData.append('image2', IdProofImage);
+            formData.append('type', 'id')
+            fetch("https://api.apixplatform.com/facematch/v1/verifyPair", {
+                method: 'POST', // or 'PUT'
+                body: formData, // data can be `string` or {object}!
+                headers: {
+                    "appId": "2d9288",
+                    "appKey": "506505f70970ce16988f",
+                    "X-Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaXhwbGF0Zm9ybS5jb20iLCJzdWIiOiI4NGJkYjQ2NC00MDYyLTExZWMtOTYzMi0wMzZhMzFmNjU5MDQiLCJhdWQiOiJodHRwczovL2FwaS5hcGl4cGxhdGZvcm0uY29tIiwiZXhwIjoxNjM2NTYzMDg3LCJuYW1lIjoiTmFyYXlhbmEgS2VsbHVydSIsImVtYWlsIjoibmFyYXlhbmFAZGlnaWNhbC5jb20uc2cifQ.EKiwRmmftMwWacjFb7T8pa_Qg3To7b2qhDnGEEAN48kXrOLWE60xP0N7SIhKYUJa9vjmRyBSoz7zYDhYJdROOIc7E3kuAUgf0fNiR0_OtCKSYs303At4I68IzptHgE5e3T7jcRfuhU8PV6MMH6hdetU8BlXRg9ef3Z23MDnq2PwjbC4rOPeDczl9Vhhd4gJDbhyHpfAovFk1I4vKCShka40KFXMwPQVZwcOCEcbrtmOV-xvVSST9Psu1Z4TCheR2gSBh-ejfZRMSVDbbG72YVXLnTtvG0Ws_dbUyWD-3A7oyvc-Uqyl8vhiV6UmgKa1gXDBQV2RyArqFNOhVqLATag",
+                }
+            }).then(r => r.json().then(data => {
+                console.log(data)
+                // document.getElementById("uploadBtn").href = "/kyc"
+                window.location.href="/kyc";
+            })).catch(error => {
+                console.log(error)
+                window.location.href="/kyc";
+            });
+        }
     </script>
 
 

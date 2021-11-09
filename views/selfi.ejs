@@ -13,7 +13,7 @@
             </label>
 
             <label id="selfiDefault" for="file-input1">
-                <img height="250px" src="/images/selfi.jpg" />
+                <img id="selfiImageDefault" height="250px" src="/images/selfi.jpg" />
             </label>
 
             <input onchange="uploadFiles()" id="file-input1" type="file" name="myImage" />
@@ -30,34 +30,42 @@
 
 
     <script type="text/javascript">
+        var uploadedFiles = ''
+
         function uploadFiles() {
-            let uploadedFiles = document.getElementById("file-input1").files[0];
-            console.log(uploadedFiles)
+            uploadedFiles = document.getElementById("file-input1").files[0];
             document.getElementById("selfiImageDiv").style.display = 'block'
             document.getElementById("selfiImage").style.display = 'block'
             document.getElementById("selfiImage").setAttribute('src', URL.createObjectURL(uploadedFiles))
             document.getElementById("selfiDefault").style.display = 'none'
             sessionStorage.setItem('selfiImage', URL.createObjectURL(uploadedFiles))
             document.getElementById("showBtn").style.display = 'block'
-
+            sessionStorage.setItem("selfi", uploadedFiles)
         };
 
 
-        // var video = document.querySelector("#videoElement");
-        // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+        function liveness() {
 
-        // if (navigator.getUserMedia) {
-        //     navigator.getUserMedia({ video: true }, handleVideo, videoError);
-        // }
+            var formData = new FormData()
+            formData.append('image', uploadImage);
 
-        // function handleVideo(stream) {
-        //     video.srcObject = stream;
-        //     video.play();
-        // }
+            fetch("https://api.apixplatform.com/hyperverge-liveness/v1/liveness", {
+                method: 'POST', // or 'PUT'
+                body: formData, // data can be `string` or {object}!
+                headers: {
+                    appId: "2d9288",
+                    appKey: "506505f70970ce16988f",
+                    "X-Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaXhwbGF0Zm9ybS5jb20iLCJzdWIiOiI4NGJkYjQ2NC00MDYyLTExZWMtOTYzMi0wMzZhMzFmNjU5MDQiLCJhdWQiOiJodHRwczovL2FwaS5hcGl4cGxhdGZvcm0uY29tIiwiZXhwIjoxNjM2NTU3MDg3LCJuYW1lIjoiTmFyYXlhbmEgS2VsbHVydSIsImVtYWlsIjoibmFyYXlhbmFAZGlnaWNhbC5jb20uc2cifQ.GSmup7ctzpqp3ZNTDdZEKvlzZpSCk0ONejgjFYyLkzd1ALJz5ZErOKANSADhi6z7HsoaLYwEXBNuu5Bdvug13gi951UZ0X5rivhKr9J1YvKeDNwDojfghwQjpUvcb84rN8j0uzZnCDd6S_vYVh7QclzgOch_hnORk9rbLZ6w402Kr7bQmi-yMnd8ZN4LhtGgSE-HHdlBBzOhH_2x4AGpgiQZGPBszNE-b2AGFA0ajICSnprRam5lvYLDWkP3RBswmjd28Nrj8tcr0BCAwoPcHmhGDg8LWPQCjXnVHZmG3gL1zirX-2syz_y-L0VaB54mHwZcq4HGx8zAysnkqZCRhg",
 
-        // function videoError(e) {
+                }
+            }).then(response => {
+                console.log(response)
+            }).catch(error => {
+                console.log(error)
+            });
+        }
 
-        // }
+
     </script>
 
 

@@ -7,6 +7,12 @@ var port = 4200; // setting port for the application
 var routes = require("./routes");
 
 app.set("port", port);
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  })
+);
+
 app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 
