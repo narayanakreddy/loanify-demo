@@ -30,11 +30,18 @@
             </label>
             <input onchange="uploadFiles('ID')" id="file-input2" type="file" name="myImage" />
         </div>
+
+        <div style="display: none;color: red;margin-bottom: 15px;" class="errorMessage" id="ErrorMessage">
+
+        </div>
+
         <a id="uploadBtn" onclick="verifyPair()">
             <button style="margin: 30px auto;" type="button" class="btn btn-primary btn-style ">
                 Upload
             </button>
         </a>
+
+
 
     </div>
 
@@ -81,12 +88,22 @@
                     "X-Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaXhwbGF0Zm9ybS5jb20iLCJzdWIiOiI4NGJkYjQ2NC00MDYyLTExZWMtOTYzMi0wMzZhMzFmNjU5MDQiLCJhdWQiOiJodHRwczovL2FwaS5hcGl4cGxhdGZvcm0uY29tIiwiZXhwIjoxNjM2NTYzMDg3LCJuYW1lIjoiTmFyYXlhbmEgS2VsbHVydSIsImVtYWlsIjoibmFyYXlhbmFAZGlnaWNhbC5jb20uc2cifQ.EKiwRmmftMwWacjFb7T8pa_Qg3To7b2qhDnGEEAN48kXrOLWE60xP0N7SIhKYUJa9vjmRyBSoz7zYDhYJdROOIc7E3kuAUgf0fNiR0_OtCKSYs303At4I68IzptHgE5e3T7jcRfuhU8PV6MMH6hdetU8BlXRg9ef3Z23MDnq2PwjbC4rOPeDczl9Vhhd4gJDbhyHpfAovFk1I4vKCShka40KFXMwPQVZwcOCEcbrtmOV-xvVSST9Psu1Z4TCheR2gSBh-ejfZRMSVDbbG72YVXLnTtvG0Ws_dbUyWD-3A7oyvc-Uqyl8vhiV6UmgKa1gXDBQV2RyArqFNOhVqLATag",
                 }
             }).then(r => r.json().then(data => {
-                console.log(data)
+                if (data.statusCode === '200') {
+                    if (data.result['match'] === 'yes') {
+                        window.location.href = "/kyc";
+                    } else {
+                        document.getElementById("ErrorMessage").style.display = 'block';
+                        document.getElementById("ErrorMessage").innerHTML = 'Mis matched.Please try again';
+                    }
+                } else if (data.statusCode === '400') {
+                    document.getElementById("ErrorMessage").style.display = 'block';
+                    document.getElementById("ErrorMessage").innerHTML = data.error;
+                }
                 // document.getElementById("uploadBtn").href = "/kyc"
-                window.location.href="/kyc";
+                // window.location.href="/kyc";
             })).catch(error => {
                 console.log(error)
-                window.location.href="/kyc";
+                // window.location.href="/kyc";
             });
         }
     </script>
