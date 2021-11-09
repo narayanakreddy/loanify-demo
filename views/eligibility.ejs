@@ -36,18 +36,7 @@
           <h2 class="amount">655</h2>
         </div>
       </div>
-
-
-
-      <!-- <div id="loader1" class="loader" style="display: none;margin-top: 20px;"></div>
-
-      <div id="loan-approved-details" style="display: none;margin-top: 30px;"> -->
-
-
-
     </div>
-
-
   </div>
   </div>
 
@@ -81,9 +70,9 @@
       }).then(response => {
         console.log(response)
         showData()
-      })
-        .catch(error => {
+      }).catch(error => {
           console.log(response)
+          showData()
         });
     }
 
