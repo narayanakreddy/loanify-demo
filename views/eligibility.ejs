@@ -6,52 +6,92 @@
     <p>Create an account to continue</p>
 
 
-    <div id="loader" class="loader"></div>
+    <div id="loader" style="margin-top: 20px;" class="loader"></div>
+
+
 
     <div id="loan-details" style="margin: 50px 0;display: none;">
-      <h6>CREDIT SCORE</h6>
-      <div class="d-flex" style="align-items: center;justify-content: center;">
-        <div class="circle"></div>
-        <h2 class="amount">655</h2>
-      </div>
-      <h5>Loan Approved</h5>
 
-      <div id="loader1" class="loader" style="display: none;margin-top: 20px;"></div>
+      <h5>Congratulations! Loan Approved</h5>
 
-      <div id="loan-approved-details" style="display: none;margin-top: 30px;">
-        <div>
-          <h6>Loan Disbursed</h6>
-          <div class="d-flex" style="align-items: center;justify-content: center;">
-            <h2 style="margin: 0;font-size: 45px;" class="amount"><span style="font-size: 30px;">USD</span> 2,500</h2>
-          </div>
+
+      <div style="margin-top: 35px;">
+        <h6>Amount Disbursed</h6>
+        <div class="d-flex" style="align-items: center;justify-content: center;">
+          <h2 style="margin: 0;font-size: 50px;" class="amount"><span style="font-size: 30px;">USD</span> 2,500</h2>
         </div>
-        <div style="margin-top: 30px;">
-          <h6>Account No.</h6>
-          <div class="d-flex" style="align-items: center;justify-content: center;">
-            <h2 style="margin: 0;" id="accountNo" class="accountNo">307728947493</h2>
-          </div>
-        </div>
-
       </div>
+
+      <div style="margin-top: 35px;">
+        <h6>Loan account no.</h6>
+        <div class="d-flex" style="align-items: center;justify-content: center;">
+          <h2 style="margin: 0;" id="accountNo" class="accountNo">307728947493</h2>
+        </div>
+      </div>
+
+      <div style="margin-top: 35px;">
+        <h6>Credit Score</h6>
+        <div class="d-flex" style="align-items: center;justify-content: center;">
+          <div class="circle"></div>
+          <h2 class="amount">655</h2>
+        </div>
+      </div>
+
+
+
+      <!-- <div id="loader1" class="loader" style="display: none;margin-top: 20px;"></div>
+
+      <div id="loan-approved-details" style="display: none;margin-top: 30px;"> -->
+
 
 
     </div>
+
+
+  </div>
   </div>
 
-  <script >
+  <script>
 
     setTimeout(() => {
-      document.getElementById("loader").style.display = 'none'
-      document.getElementById("loan-details").style.display = 'block'
-      document.getElementById("loader1").style.display = 'block'
+      createAccount()
     }, 1500);
 
-    setTimeout(() => {
-      document.getElementById("loader1").style.display = 'none'
-      document.getElementById("loan-approved-details").style.display = 'block'
-      document.getElementById("accountNo").innerHTML = `307${Math.random().toString().slice(2,12)}`
-    }, 2500);
+    function createAccount() {
+      fetch("https://api.apixplatform.com/account-mgmt/v2/account/createAccount", {
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify({
+          accountCurrency: "USD",
+          accountOpenDate: "03 September 2020",
+          accountType: 1,
+          activatedOnDate: "25 November 2020",
+          approvedOnDate: "25 November 2020",
+          customerReference: 1,
+          submittedOnDate: "25 November 2020",
+        }), // data can be `string` or {object}!
+        headers: {
+          "content-type": "application/json",
+          accept: "*/*",
+          processType: "createAccount",
+          coreBank: "fineract",
+          enableCQRS: true,
+          "X-Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaXhwbGF0Zm9ybS5jb20iLCJzdWIiOiI4NGJkYjQ2NC00MDYyLTExZWMtOTYzMi0wMzZhMzFmNjU5MDQiLCJhdWQiOiJodHRwczovL2FwaS5hcGl4cGxhdGZvcm0uY29tIiwiZXhwIjoxNjM2NTM5MzA4LCJuYW1lIjoiTmFyYXlhbmEgS2VsbHVydSIsImVtYWlsIjoibmFyYXlhbmFAZGlnaWNhbC5jb20uc2cifQ.Lc7voFbAVRexiulAGoNc9Zc3NDFTWoWqqGQrBpy609FBoYWNEE61LPLgp_RdXgZQN3HkdeX8A36EJAvVRVRSYbgyw0xATpJSrreZphsRaGI5euZnFzAuAj560bcdyZ9289Mafae2GIfwn6Uma5UEre9EEJKMwUG5mJcakMwMkscpPA_8bUB8LxWfjG8ORu3hCvGRVmxdC67lL3nawJHsaxoO7JfeW48gz42XGYJK8L6RtsiIFpMrpVlFU28uWG8--svPKVVBcVLuh5jEZv6UsXtnqeD8gT_HHmXn0LJ1Cmv5FCpLFYVl3licJ8Wh8sjw_r7ilCoRl7FmXSPQNyv9_g",
 
+        }
+      }).then(response => {
+        console.log(response)
+        showData()
+      })
+        .catch(error => {
+          console.log(response)
+        });
+    }
+
+    function showData() {
+      document.getElementById("loader").style.display = 'none'
+      document.getElementById("loan-details").style.display = 'block'
+      document.getElementById("accountNo").innerHTML = `307${Math.random().toString().slice(2, 12)}`
+    }
 
   </script>
 
