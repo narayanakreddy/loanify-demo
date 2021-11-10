@@ -1,15 +1,21 @@
 <%- include ("./_header") -%>
     <div class="">
         <div class="image-title">QikLoan</div>
-        <h3 style="margin-bottom: 15px;">Upload your Photo identification</h3>
+        <h3 style="margin-bottom: 15px;">Please capture your photo identification</h3>
 
-        <div class="image-upload" style="margin-bottom: 30px;margin-top: 30px;">
-            <label id="selfiImageDiv" for="file-input1">
-                <img id="selfiImage" height="250px" src="" />
-            </label>
+
+        <div id="screenshot" style="text-align:center;">
+            <video class="videostream" autoplay=""></video>
+            <p><button id="screenshot-button" class="btn btn-primary btn-style ">Capture ID</button></p>
         </div>
 
-        <div class="image-upload">
+
+        <div>
+            <img id="screenshot-img" width="300" height="350" src="" style="display: none;margin: 0 auto;" />
+        </div>
+
+
+        <!-- <div class="image-upload" style="margin-top: 30px;">
 
             <label id="frontImageDiv" for="file-input2" style="display: none;">
                 <img id="frontImage" height="250px" src="" />
@@ -19,13 +25,13 @@
                 <img height="250px" src="/images/uploadImage.png" />
             </label>
             <input onchange="uploadFiles('ID')" id="file-input2" type="file" name="myImage" />
-        </div>
+        </div> -->
 
         <div style="display: none;color: red;margin-bottom: 15px;" class="errorMessage" id="ErrorMessage">
 
         </div>
 
-        <a id="uploadBtn" onclick="verifyPair()">
+        <a id="uploadBtn" style="display: none;" onclick="verifyPair()">
             <button style="margin: 30px auto;" type="button" class="btn btn-primary btn-style ">
                 Upload
             </button>
@@ -41,7 +47,7 @@
         var IdProofImage = ''
 
         var selfiImageData = sessionStorage.getItem("selfiImage")
-        document.getElementById("selfiImage").setAttribute('src', selfiImageData)
+        // document.getElementById("selfiImage").setAttribute('src', selfiImageData)
 
         fetch(selfiImageData)
             .then(res => res.blob())
@@ -51,30 +57,67 @@
             })
 
 
-
-
-        function uploadFiles(type) {
-
-            if (type === 'SELFI') {
-
-                selfiImage = document.getElementById("file-input1").files[0];
-                document.getElementById("selfiImageDiv").style.display = 'block'
-                document.getElementById("selfiImage").style.display = 'block'
-                document.getElementById("selfiImage").setAttribute('src', URL.createObjectURL(selfiImage))
-                document.getElementById("selfiDefault").style.display = 'none'
-            }
-
-
-            if (type === 'ID') {
-                IdProofImage = document.getElementById("file-input2").files[0];
-                document.getElementById("frontImageDiv").style.display = 'block'
-                document.getElementById("frontImage").style.display = 'block'
-                document.getElementById("frontImage").setAttribute('src', URL.createObjectURL(IdProofImage))
-                document.getElementById("frontDefault").style.display = 'none'
-                // console.log(URL.createObjectURL(backImage))
-
-            }
+        var streamObj = '';
+        const constraints = {
+            video: { width: { exact: 300 }, height: { exact: 350 } }
         };
+        const screenshotButton = document.querySelector("#screenshot-button");
+        const img = document.querySelector("#screenshot-img");
+        const video = document.querySelector("#screenshot video");
+
+        const canvas = document.createElement("canvas");
+
+        // captureVideoButton.onclick = function () {
+        navigator.mediaDevices
+            .getUserMedia(constraints)
+            .then(handleSuccess)
+            .catch(handleError);
+        // };
+
+        screenshotButton.onclick = video.onclick = function () {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext("2d").drawImage(video, 0, 0);
+            img.src = canvas.toDataURL("image/jpeg");
+            img.style.display = 'block'
+            console.log(canvas.toDataURL("image/jpeg"));
+            document.getElementById("uploadBtn").style.display = 'block'
+
+            fetch(canvas.toDataURL("image/jpeg"))
+                .then(res => res.blob())
+                .then(blob => {
+                    IdProofImage = new File([blob], "idProof.jpg", { type: "image/jpeg" })
+                })
+
+            cameraOff()
+
+        };
+
+        function cameraOff() {
+            const stream = video.srcObject;
+            if (stream) {
+                const tracks = stream.getTracks();
+
+                tracks.forEach(function (track) {
+                    track.stop();
+                });
+
+                video.srcObject = null;
+                console.log(video);
+                document.getElementById("screenshot").style.display = 'none';
+                document.getElementById("screenshot-button").style.display = 'none';
+
+            }
+        }
+
+        function handleSuccess(stream) {
+            window.stream = stream;
+            video.srcObject = stream;
+        }
+
+        function handleError(error) {
+            console.error("Error: ", error);
+        }
 
         function verifyPair() {
             var formData = new FormData()

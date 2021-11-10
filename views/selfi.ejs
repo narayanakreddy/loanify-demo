@@ -2,19 +2,19 @@
 
     <div class="">
         <div class="image-title">QikLoan</div>
-        <h3>Take a Selfi</h3>
+        <h3>Take a selfie</h3>
         <p>
-            Please click on the picture and capture the image
+            Please capture the image
         </p>
 
         <div id="screenshot" style="text-align:center;">
             <video class="videostream" autoplay=""></video>
-            <p><button id="screenshot-button">Take screenshot</button></p>
+            <p><button id="screenshot-button" class="btn btn-primary btn-style ">Take a selfie</button></p>
         </div>
 
 
         <div>
-            <img id="screenshot-img" width="250" height="250" src="" style="display: none;margin: 0 auto;" />
+            <img id="screenshot-img" width="300" height="350" src="" style="display: none;margin: 0 auto;" />
         </div>
        
 
@@ -28,7 +28,7 @@
     <script>
         var streamObj = '';
         const constraints = {
-            video: { width: { exact: 300 }, height: { exact: 300 } }
+            video: { width: { exact: 300 }, height: { exact: 350 } }
         };
         const screenshotButton = document.querySelector("#screenshot-button");
         const img = document.querySelector("#screenshot-img");
