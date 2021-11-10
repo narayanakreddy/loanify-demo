@@ -299,9 +299,9 @@ h5 {
 }
 
 #selfiImage {
-  border: 1px solid;
+  /* border: 1px solid; */
   /* padding: 20px; */
-  border-radius: 50%;
+  /* border-radius: 50%; */
   height: 250px;
   width: 250px;
   object-fit: contain;

@@ -1,22 +1,12 @@
 <%- include ("./_header") -%>
-
-
-
-
     <div class="">
         <div class="image-title">QikLoan</div>
         <h3 style="margin-bottom: 15px;">Upload your Photo identification</h3>
 
         <div class="image-upload" style="margin-bottom: 30px;margin-top: 30px;">
-            <label id="selfiImageDiv" for="file-input1" style="display: none;">
+            <label id="selfiImageDiv" for="file-input1">
                 <img id="selfiImage" height="250px" src="" />
             </label>
-
-            <label id="selfiDefault" for="file-input1">
-                <img id="selfiImageDefault" height="250px" src="/images/selfi.jpg" />
-            </label>
-
-            <input onchange="uploadFiles('SELFI')" id="file-input1" type="file" name="myImage" />
         </div>
 
         <div class="image-upload">
@@ -49,6 +39,18 @@
 
         var selfiImage = '';
         var IdProofImage = ''
+
+        var selfiImageData = sessionStorage.getItem("selfiImage")
+        document.getElementById("selfiImage").setAttribute('src', selfiImageData)
+
+        fetch(selfiImageData)
+            .then(res => res.blob())
+            .then(blob => {
+                selfiImage = new File([blob], "camera.jpg", { type: "image/jpeg" })
+                console.log(selfiImage)
+            })
+
+
 
 
         function uploadFiles(type) {
