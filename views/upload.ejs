@@ -14,19 +14,6 @@
             <img id="screenshot-img" width="300" height="350" src="" style="display: none;margin: 0 auto;" />
         </div>
 
-
-        <!-- <div class="image-upload" style="margin-top: 30px;">
-
-            <label id="frontImageDiv" for="file-input2" style="display: none;">
-                <img id="frontImage" height="250px" src="" />
-            </label>
-
-            <label id="frontDefault" for="file-input2">
-                <img height="250px" src="/images/uploadImage.png" />
-            </label>
-            <input onchange="uploadFiles('ID')" id="file-input2" type="file" name="myImage" />
-        </div> -->
-
         <div style="display: none;color: red;margin-bottom: 15px;" class="errorMessage" id="ErrorMessage">
 
         </div>
@@ -36,18 +23,17 @@
                 Upload
             </button>
         </a>
-
-
-
     </div>
 
     <script type="text/javascript">
 
+        var appId = "2d9288";
+        var appKey = "506505f70970ce16988f";
+
         var selfiImage = '';
-        var IdProofImage = ''
+        var IdProofImage = '';
 
         var selfiImageData = sessionStorage.getItem("selfiImage")
-        // document.getElementById("selfiImage").setAttribute('src', selfiImageData)
 
         fetch(selfiImageData)
             .then(res => res.blob())
@@ -67,12 +53,10 @@
 
         const canvas = document.createElement("canvas");
 
-        // captureVideoButton.onclick = function () {
         navigator.mediaDevices
             .getUserMedia(constraints)
             .then(handleSuccess)
             .catch(handleError);
-        // };
 
         screenshotButton.onclick = video.onclick = function () {
             canvas.width = video.videoWidth;
@@ -119,17 +103,18 @@
             console.error("Error: ", error);
         }
 
+
         function verifyPair() {
             var formData = new FormData()
             formData.append('image1', selfiImage);
             formData.append('image2', IdProofImage);
             formData.append('type', 'id')
             fetch("https://api.apixplatform.com/facematch/v1/verifyPair", {
-                method: 'POST', // or 'PUT'
-                body: formData, // data can be `string` or {object}!
+                method: 'POST',
+                body: formData,
                 headers: {
-                    "appId": "2d9288",
-                    "appKey": "506505f70970ce16988f",
+                    "appId": appId,
+                    "appKey": appKey,
                     "X-Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaXhwbGF0Zm9ybS5jb20iLCJzdWIiOiI4NGJkYjQ2NC00MDYyLTExZWMtOTYzMi0wMzZhMzFmNjU5MDQiLCJhdWQiOiJodHRwczovL2FwaS5hcGl4cGxhdGZvcm0uY29tIiwiZXhwIjoxNjM2NTYzMDg3LCJuYW1lIjoiTmFyYXlhbmEgS2VsbHVydSIsImVtYWlsIjoibmFyYXlhbmFAZGlnaWNhbC5jb20uc2cifQ.EKiwRmmftMwWacjFb7T8pa_Qg3To7b2qhDnGEEAN48kXrOLWE60xP0N7SIhKYUJa9vjmRyBSoz7zYDhYJdROOIc7E3kuAUgf0fNiR0_OtCKSYs303At4I68IzptHgE5e3T7jcRfuhU8PV6MMH6hdetU8BlXRg9ef3Z23MDnq2PwjbC4rOPeDczl9Vhhd4gJDbhyHpfAovFk1I4vKCShka40KFXMwPQVZwcOCEcbrtmOV-xvVSST9Psu1Z4TCheR2gSBh-ejfZRMSVDbbG72YVXLnTtvG0Ws_dbUyWD-3A7oyvc-Uqyl8vhiV6UmgKa1gXDBQV2RyArqFNOhVqLATag",
                 }
             }).then(r => r.json().then(data => {
@@ -144,16 +129,12 @@
                     document.getElementById("ErrorMessage").style.display = 'block';
                     document.getElementById("ErrorMessage").innerHTML = data.error;
                 }
-               
+
             })).catch(error => {
                 console.log(error)
-                // window.location.href="/kyc";
             });
         }
     </script>
-
-
-
 
 
     <%- include ("./_footer") -%>
