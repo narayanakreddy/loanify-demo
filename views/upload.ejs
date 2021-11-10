@@ -1,7 +1,7 @@
 <%- include ("./_header") -%>
     <div class="">
         <div class="image-title">QikLoan</div>
-        <h3 style="margin-bottom: 15px;">Please capture your photo identification</h3>
+        <h3 style="margin-bottom: 15px;">Capture your photo ID</h3>
 
 
         <div id="screenshot" style="text-align:center;">
@@ -144,8 +144,7 @@
                     document.getElementById("ErrorMessage").style.display = 'block';
                     document.getElementById("ErrorMessage").innerHTML = data.error;
                 }
-                // document.getElementById("uploadBtn").href = "/kyc"
-                // window.location.href="/kyc";
+               
             })).catch(error => {
                 console.log(error)
                 // window.location.href="/kyc";
