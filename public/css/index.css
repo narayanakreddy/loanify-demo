@@ -303,3 +303,9 @@ h5 {
   object-fit: contain;
   cursor: pointer;
 }
+
+.video-tag{
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%;
+}

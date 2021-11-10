@@ -13,14 +13,10 @@
             </label>
 
             <label id="selfiDefault" for="file-input1">
-                <img id="selfiImageDefault" height="250px" src="/images/selfi.jpg" />
+                <video class="video-tag" autoplay></video>
             </label>
 
-            <input onchange="uploadFiles()" id="file-input1" type="file" name="myImage" />
         </div>
-
-        <!-- <video autoplay="true" id="videoElement"></video> -->
-
         <a id="showBtn" style="display: none;" href="/upload">
             <button style="margin: 30px auto;" type="button" class="btn btn-primary btn-style ">
                 Upload
@@ -29,7 +25,22 @@
     </div>
 
 
-    <script type="text/javascript">
+
+    <script>
+
+        const constraints = {
+            video: { width: { exact: 300 }, height: { exact: 300 } }
+        };
+
+        const video = document.querySelector("video");
+
+        navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+            video.srcObject = stream;
+        });
+    </script>
+
+
+    <!-- <script type="text/javascript">
         var uploadedFiles = ''
 
         function uploadFiles() {
@@ -66,7 +77,7 @@
         }
 
 
-    </script>
+    </script> -->
 
 
     <%- include ("./_footer") -%>
