@@ -13,7 +13,7 @@
             </label>
 
             <label id="selfiDefault" for="file-input1">
-                <video class="video-tag" autoplay></video>
+                <!-- <video class="video-tag" autoplay></video> -->
             </label>
 
         </div>
@@ -24,20 +24,99 @@
         </a>
     </div>
 
+    <div id="screenshot" style="text-align:center;">
+        <video class="videostream" autoplay=""></video>
+
+        <div>
+            <img id="screenshot-img" width="250" height="250" src="" style="display: none;" />
+        </div>
+
+        <!-- <p><button class="capture-button">Capture video</button>
+        </p> -->
+        <p><button id="screenshot-button">Take screenshot</button></p>
+    </div>
 
 
     <script>
+        const constraints = {
+            video: { width: { exact: 300 }, height: { exact: 300 } }
+        };
+        const screenshotButton = document.querySelector("#screenshot-button");
+        const img = document.querySelector("#screenshot img");
+        const video = document.querySelector("#screenshot video");
+
+        const canvas = document.createElement("canvas");
+
+        // captureVideoButton.onclick = function () {
+        navigator.mediaDevices
+            .getUserMedia(constraints)
+            .then(handleSuccess)
+            .catch(handleError);
+        // };
+
+        screenshotButton.onclick = video.onclick = function () {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            console.log(video)
+            canvas.getContext("2d").drawImage(video, 0, 0);
+            // Other browsers will fall back to image/png
+            img.src = canvas.toDataURL("image/webp");
+            img.style.display = 'block'
+            console.log(canvas.toDataURL("image/webp"));
+        };
+
+        function handleSuccess(stream) {
+            screenshotButton.disabled = false;
+            video.srcObject = stream;
+            console.log(stream);
+        }
+
+        function handleError(error) {
+            console.error("Error: ", error);
+        }
+    </script>
+
+    <!-- <script>
+
+        const captureVideoButton = document.querySelector(
+            "#screenshot .capture-button"
+        );
+
+        const screenshotButton = document.querySelector("#screenshot-button");
+        const img = document.querySelector("#screenshot img");
+        const video = document.querySelector("#screenshot video");
+        const canvas = document.createElement("canvas");
 
         const constraints = {
             video: { width: { exact: 300 }, height: { exact: 300 } }
         };
 
-        const video = document.querySelector("video");
 
-        navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+        captureVideoButton.onclick = function () {
+            navigator.mediaDevices
+                .getUserMedia(constraints)
+                .then(handleSuccess)
+                .catch(handleError);
+        };
+
+        screenshotButton.onclick = video.onclick = function () {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext("2d").drawImage(video, 0, 0);
+            // Other browsers will fall back to image/png
+            img.src = canvas.toDataURL("image/webp");
+        };
+
+        function handleSuccess(stream) {
+            screenshotButton.disabled = false;
             video.srcObject = stream;
-        });
-    </script>
+        }
+        // const video = document.querySelector("video");
+
+        // navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+        //     video.srcObject = stream;
+        // });
+    </script> -->
 
 
     <!-- <script type="text/javascript">

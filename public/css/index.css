@@ -311,5 +311,5 @@ h5 {
 .video-tag{
   display: block;
   margin: 0 auto;
-  border-radius: 50%;
+  /* border-radius: 50%; */
 }
