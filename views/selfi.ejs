@@ -7,29 +7,16 @@
             Please click on the picture and capture the image
         </p>
 
-        <!-- <div class="image-upload">
-            <label id="selfiImageDiv" for="file-input1" style="display: none;">
-                <img id="selfiImage" height="250px" src="" />
-            </label>
-
-            <label id="selfiDefault" for="file-input1">
-            </label>
-
-        </div>
-        <a id="showBtn" style="display: none;" href="/upload">
-            <button style="margin: 30px auto;" type="button" class="btn btn-primary btn-style ">
-                Upload
-            </button>
-        </a> -->
-
         <div id="screenshot" style="text-align:center;">
             <video class="videostream" autoplay=""></video>
-
-            <div>
-                <img id="screenshot-img" width="250" height="250" src="" style="display: none;margin: 0 auto;" />
-            </div>
             <p><button id="screenshot-button">Take screenshot</button></p>
         </div>
+
+
+        <div>
+            <img id="screenshot-img" width="250" height="250" src="" style="display: none;margin: 0 auto;" />
+        </div>
+       
 
         <a id="showBtn" style="display: none;" href="/upload">
             <button style="margin: 30px auto;" type="button" class="btn btn-primary btn-style ">
@@ -44,7 +31,7 @@
             video: { width: { exact: 300 }, height: { exact: 300 } }
         };
         const screenshotButton = document.querySelector("#screenshot-button");
-        const img = document.querySelector("#screenshot img");
+        const img = document.querySelector("#screenshot-img");
         const video = document.querySelector("#screenshot video");
 
         const canvas = document.createElement("canvas");
@@ -59,15 +46,13 @@
         screenshotButton.onclick = video.onclick = function () {
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
-            console.log(video)
             canvas.getContext("2d").drawImage(video, 0, 0);
             img.src = canvas.toDataURL("image/jpeg");
             img.style.display = 'block'
             console.log(canvas.toDataURL("image/jpeg"));
-
             document.getElementById("showBtn").style.display = 'block'
             sessionStorage.setItem("selfiImage", canvas.toDataURL("image/jpeg"))
-
+            cameraOff()
             // fetch(canvas.toDataURL("image/jpeg"))
             //     .then(res => res.blob())
             //     .then(blob => {
@@ -75,9 +60,24 @@
             //         console.log(file)
             //     })
 
-
-
         };
+
+        function cameraOff() {
+            const stream = video.srcObject;
+            if (stream) {
+                const tracks = stream.getTracks();
+
+                tracks.forEach(function (track) {
+                    track.stop();
+                });
+
+                video.srcObject = null;
+                console.log(video);
+                document.getElementById("screenshot").style.display = 'none';
+                document.getElementById("screenshot-button").style.display = 'none';
+                
+            }
+        }
 
         function handleSuccess(stream) {
             window.stream = stream;
